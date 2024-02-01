@@ -1,0 +1,120 @@
+<html>
+<head>
+<style>
+.heading{text-align:center;font-size:50px;}
+.main{margin-top:55px;}
+.container{width:70%;border:2px solid black;margin:auto;display:block;border-radius:20px;}
+.container1{height:100px;background-color:pink;font-size:40px;display:flex;align-items:center;justify-content:center;}
+.container2{height:70px;background-color:dodgerblue;margin-top:10px;display:flex;}
+.container3{height:220px;background-color:yellow;margin-top:10px;}
+.char{border:2px:solid black;background-color:dodger-blue;font-size:30px;}
+.char{position:absolute;right:290px; top:320px;}
+.bar{position:absolute;right:290px;bottom:220px;color:pink;}
+.options{margin-left:20px;}
+.check{margin-left:20px;cursor:pointer;}
+.len{font-size:25px;position:absolute;right:260px;bottom:245px;}
+.inside{height:40px;width:40%;border:2px solid black;margin:auto;border-radius:10px;font-size:25px;text-align:center;background-color:white;cursor:pointer;}
+</style>
+</head>
+<body>
+<h1 class="heading">Password Generator</h1>
+<div class="main">
+     <div class="container container1"></div>
+     <div class="container container2">
+	     <div class="inside left">Copy To Clipboard</div>
+		 <div class="inside right">Generate</div>
+	 </div>
+     <div class="container container3">
+	  <h2 class="options">Additional Options</h2>
+	  
+	 <input  class="check check1" type="checkbox" value="A-Z">A-Z</input><br><br>
+	 <input  class="check check2" type="checkbox" value="1-9">1-9</input><br><br>
+	 <input  class="check check3" type="checkbox" value="!@#$%^&*">!@#$%^&*</input><br><br>
+	 <input  class="check check4" type="checkbox" value="a-z">a-z</input><br><br>
+
+	
+	    <div class="char">Characters:</div>
+		<div class="len">16</div>
+		<input class="bar" type="range" min="2"max="30">
+     
+     </div>
+ </div>
+
+</body>
+<script>
+ var range=document.querySelector(".bar");
+ var show=document.querySelector(".len");
+  range.addEventListener('input',function(x){
+    show.innerHTML=x.target.value;
+});
+  var uppercase="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var lowercase="abcdefghijklmnopqrstuvwxyz";
+  var numbers="1234567890";
+  var special="~@#$%^&*()+-";
+  
+  
+  var btn=document.querySelector(".right");
+   
+   btn.addEventListener('click',generatepassword);
+   
+   function generatepassword(){
+   
+    var uc=document.querySelector(".check1");
+	var nums=document.querySelector(".check2");
+	var spec=document.querySelector(".check3");
+	var lc=document.querySelector(".check4");
+      var password="";
+	  var length=range.value;
+	  var result = ""; 
+	  
+	  for(let i=0;i<length;i++)
+	  {
+	    if (lc.checked)
+		{
+		var l=(Math.floor(Math.random()*26));
+		password+=lowercase[l];
+		}
+	    if (uc.checked)
+		{
+		var u=(Math.floor(Math.random()*26));
+		password+=uppercase[u];
+		}
+		if (nums.checked)
+		{
+		var n=(Math.floor(Math.random()*10));
+		password+=numbers[n];
+		}
+		if (spec.checked)
+		{
+		var s=(Math.floor(Math.random()*12));
+		password+=special[s];
+		}
+		
+	  }
+	  var final=password.substring(0,length);
+
+	  for(let j=0;j<final.length;j++)
+	  {
+	  var shuffle=Math.floor(Math.random()*final.length);
+	   result+=final[shuffle];
+	  }
+	  var show=document.querySelector(".container1");
+	  show.innerHTML=result;
+	  
+   }
+    var copy=document.querySelector(".left");
+	copy.addEventListener('click',copytext);
+	
+	 
+	 function copytext()
+	{
+	var tocopy=document.querySelector(".container1").innerText;
+	navigator.clipboard.writeText(tocopy)
+	  alert(`Text copied :${tocopy}`);
+	}
+	
+
+
+	
+</script>
+</html>
